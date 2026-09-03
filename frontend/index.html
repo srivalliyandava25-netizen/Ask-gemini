@@ -77,14 +77,14 @@
                     );
                 }
 
-                document.getElementById("answer").textContent =
+                document.getElementById("answer").innerHTML =
                     data.answer;
 
             } catch (error) {
 
                 console.error(error);
 
-                document.getElementById("answer").textContent =
+                document.getElementById("answer").innerHTML =
                     "Error: " + error.message;
             }
         }
