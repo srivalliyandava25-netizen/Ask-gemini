@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cors");
 require("dotenv").config();
 const path = require("path");
 
@@ -7,7 +7,7 @@ const ai = require("./gemini");
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "../frontend")));
