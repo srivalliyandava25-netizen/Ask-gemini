@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ask Gemini</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Ask Gemini</h1>
+
+        <p class="subtitle">
+            Ask a question and get an AI-powered answer
+        </p>
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                id="question"
+                placeholder="Ask something..."
+            >
+
+            <button onclick="askGemini()">
+                Submit
+            </button>
+
+        </div>
+
+        <h2>Answer:</h2>
+
+        <p id="answer"></p>
+
+    </div>
+
+
+    <script>
+
+        async function askGemini() {
+
+            const question =
+                document.getElementById("question").value;
+
+            if (!question) {
+
+                document.getElementById("answer").textContent =
+                    "Please enter a question.";
+
+                return;
+            }
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:3000/ask",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            question: question
+                        })
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.error || "Something went wrong"
+                    );
+                }
+
+                document.getElementById("answer").textContent =
+                    data.answer;
+
+            } catch (error) {
+
+                console.error(error);
+
+                document.getElementById("answer").textContent =
+                    "Error: " + error.message;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
